@@ -47,6 +47,7 @@ public class windowsMaximize {
 
         executePage(browserContext);
     }
+    //https://peter.sh/experiments/chromium-command-line-switches/
 
     @Test
     public void window_start_Maximized() throws InterruptedException {

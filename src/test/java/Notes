@@ -1,0 +1,6 @@
+
+1. Code Generation
+- Navigate to Pom file location in file explore
+- Open cmd and execute the following command
+
+mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="codegen demo.playwright.dev/todomvc"

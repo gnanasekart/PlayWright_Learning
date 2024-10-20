@@ -1,4 +1,4 @@
-package UseCase;
+package Locators;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;

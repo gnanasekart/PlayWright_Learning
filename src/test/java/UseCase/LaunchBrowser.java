@@ -1,6 +1,9 @@
 package UseCase;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType.*;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 
 public class LaunchBrowser {
 
@@ -9,7 +12,7 @@ public class LaunchBrowser {
         try (Playwright pw = Playwright.create()) {
 
             //Set browser as headless = false
-            BrowserType.LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false);
+            LaunchOptions headedBrowser = new LaunchOptions().setHeadless(false);
             //new chromium browser
             Browser browser = pw.chromium().launch(headedBrowser);
             //new page inside the browser

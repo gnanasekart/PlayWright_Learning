@@ -15,11 +15,11 @@ public class windowsMaximize {
     private static final double height = screenWidth().getHeight();
     private static final double width = screenWidth().getWidth();
 
-    private static Playwright playwright = Playwright.create();
+    private static final Playwright playwright = Playwright.create();
     private static Path chromePath = Paths.get("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
-    private static Path localChromePath = Paths.get("C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
+    private static final Path localChromePath = Paths.get("C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
     private static Path ffPath = Paths.get("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-    private static Path edgePath = Paths.get("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+    private static final Path edgePath = Paths.get("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
 
 
 
@@ -27,7 +27,16 @@ public class windowsMaximize {
     public void maximize_Window_Toolkit() throws InterruptedException {
         System.out.println(height + "----" + width);
 
-        //Set browser as headless = false
+        /*
+         *
+         * When defining a new browser type in Playwright, it's essential to use the BrowserType.
+         * LaunchOptions interface to set configuration options for the browser instance.
+         * In the code snippet new BrowserType.LaunchOptions().setHeadless(false), the BrowserType.
+         * LaunchOptions is used to create a new instance of the LaunchOptions class, which sets properties for the browser launch.
+         * By setting headless to false, the browser will launch in a non-headless mode, allowing you to interact with it visually.
+         * This approach provides more flexibility and control when creating new browser instances in Playwright.
+         */
+
         LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false);
 
         //new chromium browser

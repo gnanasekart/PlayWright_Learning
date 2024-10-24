@@ -1,17 +1,22 @@
 package Element_Operations;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class Checkbox  {
+public class HandleAlert {
+
     private static Page page;
     private static Playwright playwright;
     private static Browser browser;
-    private static final String URL = "http://tizag.com/htmlT/htmlcheckboxes.php";
+    private static final String URL = "https://mail.rediff.com/cgi-bin/login.cgi/";
 
     @BeforeAll
     public static void setup() {
@@ -29,26 +34,25 @@ public class Checkbox  {
     @AfterAll
     public static void teardown()  {
         // Close browser and playwright after all tests
-
         page.close();
         browser.close();
         playwright.close();
     }
 
     @Test
-    void testBlockCheckBox()throws InterruptedException{
+    void handleAlertPopUp() {
         page.navigate(URL);
 
-        // Find and click checkbox
-        //Locator block = page.locator("//h2[text()='HTML Checkbox Form:']/following-sibling::div[1]");
-        //Locator block = page.locator("html>body>table:nth-of-type(3)>tbody>tr>td:nth-of-type(2)>table>tbody>tr>td>div:nth-of-type(4)");
-        Locator checkboxes = page.locator("html>body>table:nth-of-type(3)>tbody>tr>td:nth-of-type(2)>table>tbody>tr>td>div:nth-of-type(4)>[type='checkbox']");
+        //Enabling a listener to capture the alert message and accept/denied, etc.
+        page.onDialog(alert -> {
+            System.out.println("Alert message: " + alert.message());
+            //alert.accept();
+            alert.dismiss();
 
-        for (int i = 1; i < checkboxes.count(); i++) {
-            System.out.println(checkboxes.nth(i).getAttribute("value"));
-            checkboxes.nth(i).click();
-            Thread.sleep(2000);
-        }
+            Assertions.assertTrue(alert.message().contains("Please enter a valid user name"));
+        });
 
+        //Submitting the form
+        page.locator("input[type=submit]").click();
     }
 }

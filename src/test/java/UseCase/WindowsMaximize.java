@@ -9,11 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class windowsMaximize {
+public class WindowsMaximize {
 
     //Screen dimension
-    private static final double height = screenWidth().getHeight();
-    private static final double width = screenWidth().getWidth();
+    public static final double HEIGHT = screenWidth().getHeight();
+    public static final double WIDTH = screenWidth().getWidth();
 
     private static final Playwright playwright = Playwright.create();
     private static Path chromePath = Paths.get("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
@@ -25,7 +25,7 @@ public class windowsMaximize {
 
     @Test
     public void maximize_Window_Toolkit() throws InterruptedException {
-        System.out.println(height + "----" + width);
+        System.out.println(HEIGHT + "----" + WIDTH);
 
         /*
          *
@@ -43,14 +43,14 @@ public class windowsMaximize {
         Browser browser = playwright.chromium().launch(headedBrowser);
 
         //maximizing the browser window
-        BrowserContext browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize((int) width, (int) height));
+        BrowserContext browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize((int) WIDTH, (int) HEIGHT));
 
         executePage(browserContext);
     }
     //https://peter.sh/experiments/chromium-command-line-switches/
 
     @Test
-    public void window_start_Maximized() throws InterruptedException {
+    void window_start_Maximized() throws InterruptedException {
         ArrayList<String> argument = new ArrayList<>();
         argument.add("--start-maximized");
 
@@ -67,7 +67,7 @@ public class windowsMaximize {
     }
 
     @Test
-    public void set_Executable_Path() throws InterruptedException {
+    void set_Executable_Path() throws InterruptedException {
         ArrayList<String> argument = new ArrayList<>();
         argument.add("--start-maximized");
 

@@ -5,6 +5,8 @@ import com.microsoft.playwright.BrowserType.*;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
+import java.io.FileInputStream;
+
 public class LaunchBrowser {
 
 
@@ -24,7 +26,7 @@ public class LaunchBrowser {
             //close the web page
             page.close();
             //close the playwright object
-            pw.close();
+            //pw.close();
         }
     }
 

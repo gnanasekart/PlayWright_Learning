@@ -8,6 +8,7 @@ import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class WindowsMaximize {
 
@@ -17,12 +18,14 @@ public class WindowsMaximize {
 
     private static final Playwright playwright = Playwright.create();
     private static Path chromePath = Paths.get("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
-    private static final Path localChromePath = Paths.get("C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
+    private static final Path localChromePath = Paths.get("C:\\Users\\gnana.SEKARSUMITHRA\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
     private static Path ffPath = Paths.get("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
     private static final Path edgePath = Paths.get("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
 
 
-
+    /**
+     * Maximizing using screen dimensions
+     */
     @Test
     public void maximize_Window_Toolkit() throws InterruptedException {
         System.out.println(HEIGHT + "----" + WIDTH);
@@ -39,7 +42,7 @@ public class WindowsMaximize {
 
         LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false);
 
-        //new chromium browser
+        //new Chromium browser
         Browser browser = playwright.chromium().launch(headedBrowser);
 
         //maximizing the browser window
@@ -49,6 +52,10 @@ public class WindowsMaximize {
     }
     //https://peter.sh/experiments/chromium-command-line-switches/
 
+
+    /**
+     * Maximizing using arguments
+     */
     @Test
     void window_start_Maximized() throws InterruptedException {
         ArrayList<String> argument = new ArrayList<>();
@@ -66,13 +73,20 @@ public class WindowsMaximize {
         executePage(browserContext);
     }
 
+    /**
+     * Set edge browser path from local
+     * @throws InterruptedException
+     */
     @Test
     void set_Executable_Path() throws InterruptedException {
         ArrayList<String> argument = new ArrayList<>();
         argument.add("--start-maximized");
 
         //Set channel and arguments
-        LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false).setExecutablePath(edgePath);
+        LaunchOptions headedBrowser = new BrowserType.LaunchOptions()
+                .setHeadless(false)
+                .setExecutablePath(edgePath)
+                .setArgs(argument);
 
         //new chromium browser
         Browser browser = playwright.chromium().launch(headedBrowser);
@@ -83,16 +97,18 @@ public class WindowsMaximize {
         executePage(browserContext);
     }
 
-
+    /**
+     * Launch a browser in non Incognito browser mode
+     */
     @Test
     public void nonIncognito_Browser() throws InterruptedException {
-        //Set browser as headless = false
-        BrowserType.LaunchPersistentContextOptions headedBrowser = new BrowserType.LaunchPersistentContextOptions().setHeadless(false);
+
+        BrowserContext browserContext = playwright.chromium().launchPersistentContext(Paths.get(localChromePath.toUri()), new BrowserType.LaunchPersistentContextOptions().setHeadless(false));
 
         //use chrome history from app local data by providing the location path, if empty means does not load local data
-        BrowserContext browser = playwright.chromium().launchPersistentContext(Paths.get(localChromePath.toUri()), headedBrowser);
+        //BrowserContext browserContext = playwright.chromium().launchPersistentContext(Paths.get(localChromePath.toUri()), new BrowserType.LaunchPersistentContextOptions().setHeadless(false));
 
-        executePage(browser);
+        executePage(browserContext);
     }
 
     public static Dimension screenWidth() {
@@ -108,7 +124,20 @@ public class WindowsMaximize {
 
         //printing page title
         System.out.println(page.title());
-        Thread.sleep(10000);
+        Thread.sleep(4000);
+        tearDown(page);
+    }
+
+    public static void executePage(Browser browser) throws InterruptedException {
+        //new page inside the browser
+        Page page = browser.newPage();
+
+        //new navigating page
+        page.navigate("https://google.co.in");
+
+        //printing page title
+        System.out.println(page.title());
+        Thread.sleep(4000);
         tearDown(page);
     }
 

@@ -1,5 +1,6 @@
 package UseCase;
 
+import Base.BaseFunction;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,8 @@ import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class WindowsMaximize {
+public class WindowsMaximize extends BaseFunction  {
 
     //Screen dimension
     public static final double HEIGHT = screenWidth().getHeight();
@@ -39,6 +39,8 @@ public class WindowsMaximize {
          * By setting headless to false, the browser will launch in a non-headless mode, allowing you to interact with it visually.
          * This approach provides more flexibility and control when creating new browser instances in Playwright.
          */
+
+        //defaultBrowserLaunch("https://google.co.in"); from BaseFunction class
 
         LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false);
 

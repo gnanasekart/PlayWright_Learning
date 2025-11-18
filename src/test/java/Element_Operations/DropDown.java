@@ -19,6 +19,7 @@ public class DropDown {
         playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
         page = browser.newPage();
+        page.navigate("https://www.wikipedia.org/");
     }
 
     @AfterAll
@@ -30,9 +31,6 @@ public class DropDown {
 
     @Test
     void dropDown_Select() {
-
-        page.navigate("https://www.wikipedia.org/");
-
         //Select dropdown option by using value
         page.selectOption("select", "hi");
 
@@ -45,19 +43,35 @@ public class DropDown {
 
     @Test
     void dropDown_Select_Options(){
-
-        page.navigate("https://www.wikipedia.org/");
-
         //collect locators and options under select locator
         Locator values = page.locator("select > option");
 
         for (int i = 0; i < values.count(); i++) {
-            System.out.println(values.nth(i).getAttribute("value"));
-            System.out.println(values.nth(i).innerText());
-            System.out.println("--------------------");
+            System.out.println(values.nth(i).innerText()+"-----"+values.nth(i).getAttribute("value"));
         }
+    }
 
+    @Test
+    void dropDown_ElementHandle(){
         //similar action with ElementHandler
         List<ElementHandle> list = page.querySelectorAll("select > option");
+
+        System.out.println(list.size());
+
+        for (ElementHandle e : list) {
+            System.out.println(e.innerText()+"------------"+e.getAttribute("lang"));
+        }
+    }
+
+    @Test
+    void printLinks() {
+        // Print all links on the page
+        //Locator links = page.locator("a");
+        Locator links = page.locator("//*[@id=\"www-wikipedia-org\"]/footer/nav/div/a");
+        System.out.println(links.count());
+        for (int i = 0; i < links.count(); i++) {
+
+            System.out.println(links.nth(i).innerText() + " ----- " + links.nth(i).getAttribute("href"));
+        }
     }
 }

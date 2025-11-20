@@ -52,6 +52,22 @@ public class BaseFunction {
         }
     }
 
+    public static Page launchMaxDefaultBrowser(String URL) throws InterruptedException {
+        // Use the shared playwright instance and keep browser/context alive until teardown
+        BrowserType.LaunchOptions headedBrowser = new BrowserType.LaunchOptions().setHeadless(false);
+        Browser browser = playwright.chromium().launch(headedBrowser);
+
+        BrowserContext browserContext = browser.newContext(
+                new Browser.NewContextOptions()
+                        .setViewportSize((int) WIDTH, (int) HEIGHT));
+
+        Page page = browserContext.newPage();
+        page.navigate(URL);
+        System.out.println(page.title());
+        Thread.sleep(1000);
+        return page;
+    }
+
     /**
      * @purpose Launch the specific browser in headed mode
      * @param browserName String

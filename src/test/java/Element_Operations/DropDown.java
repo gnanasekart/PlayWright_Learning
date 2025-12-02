@@ -2,9 +2,9 @@ package Element_Operations;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.SelectOption;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class DropDown {
     private static Page page;
     private static Playwright playwright;
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() {
         // Set up your page object here
         playwright = Playwright.create();
@@ -22,7 +22,7 @@ public class DropDown {
         page.navigate("https://www.wikipedia.org/");
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown() {
         // Close browser and playwright after all tests
         page.close();

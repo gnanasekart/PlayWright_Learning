@@ -1,14 +1,14 @@
 package Element_Operations;
 
-import UseCase.WindowsMaximize;
+import Base.BaseFunction;
 import com.microsoft.playwright.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
-public class HandleTabAndPopUps {
+public class HandleTabAndPopUps extends BaseFunction {
 
     private static Page page;
     private static Playwright playwright;
@@ -16,7 +16,7 @@ public class HandleTabAndPopUps {
     private static BrowserContext browserContext;
     private static final String URL = "https://sso.teachable.com/secure/673/identity/sign_up/otp";
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() {
         // Set up your page object here
         playwright = Playwright.create();
@@ -34,7 +34,7 @@ public class HandleTabAndPopUps {
         page = browserContext.newPage();
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown() {
         // Close browser and playwright after all tests
         page.close();
@@ -45,12 +45,12 @@ public class HandleTabAndPopUps {
     @Test
     void handleAlertPopUp() {
         page.navigate(URL);
-
+        Locator.ClickOptions setTimeout = new Locator.ClickOptions().setTimeout(3000);
         Page popup = page.waitForPopup(() -> {
             page.locator("text=Privacy").nth(1).click();
         });
 
-        popup.locator("(//div[text()='Creator login'])[2]").click();
+        popup.locator("(//div[text()='Creator login'])[2]").click(setClickTimeout);
         //popup.locator("input[type=\"email\"]").fill("gnana");
 
         popup.close();

@@ -3,9 +3,9 @@ package Locators;
 import Base.BaseFunction;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.util.regex.Pattern;
 
@@ -17,13 +17,13 @@ public class Locators extends BaseFunction {
     private static Playwright playwright;
     private static Browser browser;
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() throws InterruptedException {
         // Set up your page object here
         page = launchMaxDefaultBrowser("https://playwright.dev/java/docs/locators#locate-by-role");
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown() {
         tearDown(page);
     }

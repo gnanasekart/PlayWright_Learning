@@ -4,10 +4,11 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class HandleAlert {
     private static Browser browser;
     private static final String URL = "https://mail.rediff.com/cgi-bin/login.cgi/";
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() {
         // Set up your page object here
         playwright = Playwright.create();
@@ -31,7 +32,7 @@ public class HandleAlert {
         page = browser.newPage();
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown()  {
         // Close browser and playwright after all tests
         page.close();

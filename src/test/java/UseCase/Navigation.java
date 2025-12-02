@@ -4,8 +4,8 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType.*;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Navigation {
 
@@ -13,7 +13,7 @@ public class Navigation {
     private static Page page;
     private static Browser browser;
 
-    @BeforeAll
+    @BeforeTest
     public static void launch(){
         Playwright playwright = Playwright.create();
         browser = playwright.chromium().launch(new LaunchOptions().setHeadless(true));

@@ -11,6 +11,8 @@ public class BaseFunction {
     public static final double HEIGHT = screenWidth().getHeight();
     public static final double WIDTH = screenWidth().getWidth();
 
+    public static Locator.ClickOptions setClickTimeout = new Locator.ClickOptions().setTimeout(5000);
+
 
     /**
      * @purpose Launch the default browser in headless mode
@@ -93,31 +95,33 @@ public class BaseFunction {
 
     /**
      * @purpose Launch the specific browser in headed mode with Maximized window
-     * @param browserName String
-     * @param URL String
+     * @param   browserName String
+     * @param   URL String
+     * @return  Page Object that can used for test automation
+     * NOTE: Remember to call tearDown(page) method to close the browser and playwright instance
      */
-    public static void launchBrowserWithMaximize(String browserName, String URL) {
-        try (Playwright pw = Playwright.create()) {
+
+    public static Page launchBrowserWithMaximize(String browserName, String URL) {
             //Set browser as headless = false
             BrowserType.LaunchOptions headedBrowser = new BrowserType.LaunchOptions()
                     .setChannel(browserName)
                     .setHeadless(false);
 
             //new chromium browser
-            Browser browser = pw.chromium().launch(headedBrowser);
+            Browser browser = playwright.chromium().launch(headedBrowser);
 
             //maximizing the browser window
             BrowserContext browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize((int) WIDTH, (int) HEIGHT));
 
             //new page inside the browser
-            Page page = browser.newPage();
+            Page page = browserContext.newPage();
 
             //new navigating page
             page.navigate(URL);
 
             //printing page title
             System.out.println(page.title());
-        }
+            return page;
     }
 
     public static void executePage(BrowserContext browserContext) throws InterruptedException {

@@ -3,7 +3,7 @@ package UseCase;
 import Base.BaseFunction;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.nio.file.Path;

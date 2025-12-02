@@ -1,14 +1,11 @@
 package Element_Operations;
 
 import com.microsoft.playwright.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class HandleFrame {
 
@@ -17,7 +14,7 @@ public class HandleFrame {
     private static Browser browser;
     private static final String URL = "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_submit_get";
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() {
         // Set up your page object here
         playwright = Playwright.create();
@@ -35,7 +32,7 @@ public class HandleFrame {
         page = browserContext.newPage();
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown()  {
         // Close browser and playwright after all tests
         page.close();
@@ -55,5 +52,10 @@ public class HandleFrame {
 
                 //clickOptions set a timeout of 2 seconds, and it will consider once after the page load completes not after page launch.
                 .click(new Locator.ClickOptions().setTimeout(2000));
+
+        Locator iframe = page.locator("iframe");
+        for (int i = 0; i < iframe.count(); i++) {
+            System.out.println("Frame " + i + " : "+iframe.nth(i).getAttribute("id"));
+        }
     }
 }

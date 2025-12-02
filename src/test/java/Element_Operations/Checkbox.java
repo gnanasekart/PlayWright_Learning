@@ -1,9 +1,9 @@
 package Element_Operations;
 
 import com.microsoft.playwright.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class Checkbox  {
     private static Browser browser;
     private static final String URL = "http://tizag.com/htmlT/htmlcheckboxes.php";
 
-    @BeforeAll
+    @BeforeTest
     public static void setup() {
         // Set up your page object here
         playwright = Playwright.create();
@@ -26,7 +26,7 @@ public class Checkbox  {
         page = browser.newPage();
     }
 
-    @AfterAll
+    @AfterTest
     public static void teardown()  {
         // Close browser and playwright after all tests
 

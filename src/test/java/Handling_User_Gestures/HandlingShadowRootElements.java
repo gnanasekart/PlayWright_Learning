@@ -4,6 +4,8 @@ import Base.BaseFunction;
 import com.microsoft.playwright.Page;
 import org.testng.annotations.Test;
 
+import javax.swing.*;
+
 public class HandlingShadowRootElements extends BaseFunction {
 
     @Test
@@ -45,5 +47,21 @@ public void TestShadowRootElements2() {
         Page page = launchBrowserWithMaximize("chrome", "chrome://downloads/");
 
         page.locator("#searchInput").fill("Java");
+    }
+
+    @Test
+    public void testEvaluateJS() throws InterruptedException {
+        Page page = launchBrowserWithMaximize("chrome", "https://google.com");
+        System.out.println("document title: " + page.evaluate("document.location.href"));
+
+        page.evaluate("() => {"
+                + "const textarea = document.createElement('textarea');"
+                + "document.body.append(textarea);"
+                + "textarea.focus();"
+                + "}"
+        );
+        Thread.sleep(5000);
+        String text = "Hello from Playwright";
+        page.keyboard().type(text);
     }
 }

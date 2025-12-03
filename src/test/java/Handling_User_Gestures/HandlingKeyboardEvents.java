@@ -27,6 +27,19 @@ public class HandlingKeyboardEvents extends BaseFunction {
 
         //page.locator("#APjFqb").fill("Java", new Locator.FillOptions().wait(100));
 
+        page.keyboard().press("Control+A");
+        Thread.sleep(2000);
+
+        page.keyboard().press("Control+C");
+        Thread.sleep(2000);
+
+        page.keyboard().press("Control+V");
+        Thread.sleep(5000);
+
+        for (int i = 0; i < 3; i++) {
+            page.keyboard().press("ArrowLeft");
+        }
+
     }
 
 }

@@ -3,6 +3,12 @@ package Base;
 import com.microsoft.playwright.*;
 
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 
 public class BaseFunction {
 
@@ -159,5 +165,57 @@ public class BaseFunction {
         page.close();
         //close the playwright object
         playwright.close();
+    }
+
+    public Page.ScreenshotOptions getByPageScreenShotOptions() {
+        Date date =  new Date();
+        String timestamp = String.valueOf(date.getTime());
+
+        return new Page.ScreenshotOptions()
+                .setPath(Paths.get("./src/test/resources/Screenshot/" + "image_" + timestamp + ".png"));
+    }
+
+    public Locator.ScreenshotOptions getByLocatorScreenShotOptions() {
+        Date date =  new Date();
+        String timestamp = String.valueOf(date.getTime());
+
+        return new Locator.ScreenshotOptions()
+                .setPath(Paths.get("./src/test/resources/Screenshot/" + "image_" + timestamp + ".png"));
+    }
+
+    /**
+     * Deletes all regular files inside the screenshot directory.
+     * @return true if one or more files were deleted, false otherwise
+     */
+    public static boolean clearScreenshotDirectory() {
+        Path dir = Paths.get("./src/test/resources/Screenshot/");
+        try {
+            if (Files.exists(dir) && Files.isDirectory(dir)) {
+                boolean deletedAny = false;
+                try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+                    for (Path entry : stream) {
+                        try {
+                            if (Files.isRegularFile(entry)) {
+                                Files.delete(entry);
+                                deletedAny = true;
+                                System.out.println("Deleted file: " + entry.toString());
+                            }
+                        } catch (IOException e) {
+                            System.err.println("Failed to delete file: " + entry + " - " + e.getMessage());
+                        }
+                    }
+                }
+                if (!deletedAny) {
+                    System.out.println("No files found to delete in: " + dir.toString());
+                }
+                return deletedAny;
+            } else {
+                System.out.println("Directory does not exist: " + dir.toString());
+                return false;
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to clear directory: " + e.getMessage());
+            return false;
+        }
     }
 }

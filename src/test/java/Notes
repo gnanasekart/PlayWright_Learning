@@ -4,3 +4,6 @@
 - Open cmd and execute the following command
 
 mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="codegen demo.playwright.dev/todomvc"
+
+2. View the Trace viewer zip file
+mvn --% exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="show-trace traceViewer.zip"

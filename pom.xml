@@ -43,8 +43,9 @@
                 <version>3.10.1</version>
                 <!-- References to interface static methods are allowed only at source level 1.8 or above -->
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

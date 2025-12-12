@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <apachi.poi.version>4.1.2</apachi.poi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
@@ -33,6 +34,55 @@
             <version>7.11.0</version>
         </dependency>
 
+        <!-- Added Apache Log4j 1.x for test logging (1.2.17). If you prefer Log4j 2.x, I can switch and add a log4j2 config instead. -->
+<!--        <dependency>-->
+<!--            <groupId>log4j</groupId>-->
+<!--            <artifactId>log4j</artifactId>-->
+<!--            <version>1.2.17</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.24.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.24.1</version>
+        </dependency>
+
+        <!-- Apache POI dependency for Excel sheet access -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apachi.poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apachi.poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>${apachi.poi.version}</version>
+        </dependency>
 
     </dependencies>
     <build>

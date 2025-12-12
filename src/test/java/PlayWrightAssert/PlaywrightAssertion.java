@@ -4,18 +4,29 @@ import Base.BaseFunction;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 public class PlaywrightAssertion extends BaseFunction {
 
     Page page = launchBrowserWithMaximize("chrome", "http://tizag.com/htmlT/htmlcheckboxes.php");
+    public static Logger log = LogManager.getLogger(PlaywrightAssertion.class);
+
+    @BeforeClass
+    void setup() {
+        log.info("Navigated to Tizag Checkboxes page for assertions");
+        System.setProperty("log4j.configurationFile", "./resources/log4j2.properties");
+    }
 
     @Test
     void checkBoxAssertion() {
         assertThat(page).hasURL("http://tizag.com/htmlT/htmlcheckboxes.php");
         assertThat(page).hasTitle("HTML Tutorial - Checkboxes");
+        log.info("Page URL and Title assertions passed");
     }
 
 
@@ -27,6 +38,7 @@ public class PlaywrightAssertion extends BaseFunction {
 
         // isAttached - element exists in DOM
         assertThat(soccer).isAttached();
+        log.info("Checkbox assertions passed");
 
     /*
      isChecked - Tizag example shows some checkboxes can be pre-checked;
@@ -61,6 +73,7 @@ public class PlaywrightAssertion extends BaseFunction {
         //3). isFocused
         soccer.focus();
         assertThat(soccer).isFocused();
+        log.info("Focused");
 
         //4). isEditable - not applicable to checkbox; demonstrate with an input text
         page.evaluate("() => { const t = document.createElement('input'); " +
@@ -71,6 +84,7 @@ public class PlaywrightAssertion extends BaseFunction {
 
         Locator txt = page.locator("#txt");
         assertThat(txt).isEditable();
+        log.info("Text assertions passed");
 
         //5). isEmpty - container with no children
         page.evaluate("() => { " +
@@ -114,6 +128,7 @@ public class PlaywrightAssertion extends BaseFunction {
 
         //9). hasCSS - check computed style color
         assertThat(demo).hasCSS("color", "rgb(255, 0, 0)");
+        log.info("color CSS assertion passed");
 
         //10). hasJSProperty - set via evaluate and assert
         page.evaluate("() => document.querySelector('#demo').jsProp = 'jsValue'");
@@ -170,5 +185,6 @@ public class PlaywrightAssertion extends BaseFunction {
         // matchesAriaSnapshot - capture ARIA snapshot for demo element
         Locator demo = page.locator("#demo");
         assertThat(demo).matchesAriaSnapshot(demo.ariaSnapshot());
+        log.info("Select assertions passed");
     }
 }

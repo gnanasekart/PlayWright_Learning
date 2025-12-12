@@ -9,8 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import org.apache.logging.log4j.LogManager;
 
 public class BaseFunction {
+
 
     private static final Playwright playwright = Playwright.create();
     //Screen dimension

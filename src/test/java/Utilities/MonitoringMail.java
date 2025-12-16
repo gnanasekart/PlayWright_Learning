@@ -60,7 +60,6 @@ public class MonitoringMail
             message.setRecipients(Message.RecipientType .TO, addressTo);
             message.setSubject(subject);
 
-
             BodyPart body = new MimeBodyPart();
 
             // body.setText(messageBody);
@@ -89,9 +88,9 @@ public class MonitoringMail
 
         public PasswordAuthentication getPasswordAuthentication()
         {
-            //String username = TestConfig.from;
-            //String password = TestConfig.password;
-            return new PasswordAuthentication("username", "password");
+            String username = TestConfig.from;
+            String password = TestConfig.password;
+            return new PasswordAuthentication(username, password);
         }
     }
 

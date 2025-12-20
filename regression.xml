@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Test Suite" verbose="2" parallel="false">
+    <!-- TestNG suite that explicitly lists test classes by fully-qualified name -->
+
+    <test name="Regression Login Tests" >
+        <classes>
+            <class name="TestNG.TestCase1"/>
+        </classes>
+    </test>
+
+    <test name="Regression Functional Tests" >
+        <classes>
+            <class name="TestNG.TestCase2"/>
+        </classes>
+    </test>
+</suite>

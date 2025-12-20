@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" verbose="2" parallel="false">
+    <!-- TestNG suite that explicitly lists test classes by fully-qualified name -->
+
+    <listeners>
+        <listener class-name="TestNG.Listeners"></listener>
+    </listeners>
+
+    <test name="Login test">
+        <classes>
+            <class name="TestNG.TestCase1"/>
+        </classes>
+    </test>
+
+    <test name="Validation test">
+        <classes>
+            <class name="TestNG.TestCase1"/>
+        </classes>
+    </test>
+
+    <test name="Dependency test">
+        <groups>
+            <run>
+                <include name="bvt"></include>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="TestNG.TestCase1"/>
+        </classes>
+    </test>
+
+    <test name="Failure test">
+        <classes>
+            <class name="TestNG.TestFailure"/>
+        </classes>
+    </test>
+</suite>
